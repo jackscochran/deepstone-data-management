@@ -5,9 +5,10 @@ import mongoengine
 
 def load_data(tickers=None):
     if tickers is None:
-        tickers = supplier.get_ticker_list()[:4000]
+        tickers = supplier.get_ticker_list()[:100]
     
     __load_companies__(tickers)
+
 
 def get_all_tickers():
     companies = model.Company.objects.all()
@@ -24,6 +25,8 @@ def __load_company__(ticker, company_info):
     if company_info is None:
         return
 
+
+    print(f'Loading {ticker} company data into database')
     company_info = company_info.copy()
 
     company_model = model.Company(

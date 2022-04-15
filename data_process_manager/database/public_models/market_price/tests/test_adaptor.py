@@ -6,7 +6,7 @@ from . import TEST_TICKER
 from . import TEST_PRICES
 
 
-def test_price_model(create_test_db):
+def test_price_model_gets_saved_to_database(create_test_db):
     for i in [0,1,3,4]:
         price = TEST_PRICES[i]
         adaptor.__load_price__(price['ticker'], price['date'])
@@ -14,13 +14,13 @@ def test_price_model(create_test_db):
         assert price['ticker'] == entry.ticker and price['date'] == entry.date and price['value'] == entry.value, f'Price {i} failed to load' 
 
 
-def test_get_company_is_none(create_test_db):
+def test_get_company_from_empty_database_is_none(create_test_db):
     price = TEST_PRICES[0]
     entry = adaptor.get_price_from_db(price['ticker'], price['date'])
     assert entry is None
 
 
-def test_load_historical_prices(create_test_db):
+def test_load_historical_prices_from_db(create_test_db):
     adaptor.__load_historical_prices__(TEST_TICKER)
 
     for i in range(len(TEST_PRICES)):

@@ -25,6 +25,12 @@ def get_price_from_db(ticker ,date):
 
 def __load_historical_prices__(ticker):
     prices = supplier.get_historical_prices(ticker)
+
+    if prices is None:
+        return
+
+    print(f'Loading historical prices for {ticker}')
+
     for date, value in prices.items():
         date = str(date)[:10]
         __add_price__(ticker, date, value)

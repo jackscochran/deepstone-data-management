@@ -22,3 +22,7 @@ def test_get_financials_is_none(create_test_db):
     financials = adaptor.get_financials(TEST_TICKER, TEST_DATE, TEST_PERIOD)
     assert financials is None
 
+def test_load_financials_of_empty_ticker_is_none(create_test_db):
+    adaptor.__load_financials__('', TEST_DATE, TEST_PERIOD)
+    financials = adaptor.get_financials('', TEST_DATE, TEST_PERIOD)
+    assert financials is None

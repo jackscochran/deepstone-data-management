@@ -11,5 +11,9 @@ def get_price(ticker, date):
     return price
 
 def get_historical_prices(ticker):
-    prices = yf_stock_info.get_data(ticker, interval='1d')['close']
+    try:
+        prices = yf_stock_info.get_data(ticker, interval='1d')['close']
+    except:
+        return None
+
     return prices.round(2)

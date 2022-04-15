@@ -1,7 +1,7 @@
 import requests
 import os
 
-API_KEY = os.environ.get('API_KEY')
+FMP_API_KEY = os.environ['FMP_API_KEY']
 
 def get_financial_statements(ticker, date, period):
     return __format_financials__(
@@ -33,7 +33,10 @@ def get_historical_financial_statements(ticker, period):
 
     return financials
 
-def __format_financials__(income_statement, balance_sheet, cashflow_statement, financial_metrics):
+def __format_financials__(income_statement, balance_sheet, cashflow_statement, financial_metrics): 
+
+    if income_statement is None or balance_sheet is None or cashflow_statement is None or financial_metrics is None:
+        return None
 
     income_statement = income_statement.copy()
     balance_sheet = balance_sheet.copy()
@@ -57,30 +60,49 @@ def __format_financials__(income_statement, balance_sheet, cashflow_statement, f
     return financials
 
 def __find_statement_by_date__(statements, date):
+    if statements is None:
+        return None
+
     for statement in statements:
         if statement['date'][:7] <= date[:7]:
             return statement
     
     
 def get_historical_balance_sheets(ticker, period):
-    api_url = f'https://fmpcloud.io/api/v3/balance-sheet-statement/{ticker.upper()}?period={period}&apikey={API_KEY}'
+    api_url = f'https://fmpcloud.io/api/v3/balance-sheet-statement/{ticker.upper()}?period={period}&apikey={FMP_API_KEY}'
     balance_sheets = requests.get(api_url).json()
-    return balance_sheets
+
+    if isinstance(balance_sheets, list):
+        return balance_sheets
+
+    return None
 
 def get_historical_income_statements(ticker, period):
-    api_url = f'https://fmpcloud.io/api/v3/income-statement/{ticker.upper()}?period={period}&apikey={API_KEY}'
+    api_url = f'https://fmpcloud.io/api/v3/income-statement/{ticker.upper()}?period={period}&apikey={FMP_API_KEY}'
     income_statements = requests.get(api_url).json()
-    return income_statements
+
+    if isinstance(income_statements, list):
+        return income_statements
+
+    return None
 
 def get_historical_cashflow_statements(ticker, period):
-    api_url = f'https://fmpcloud.io/api/v3/cash-flow-statement/{ticker.upper()}?period={period}&apikey={API_KEY}'
+    api_url = f'https://fmpcloud.io/api/v3/cash-flow-statement/{ticker.upper()}?period={period}&apikey={FMP_API_KEY}'
     cashflow_statements = requests.get(api_url).json()
-    return cashflow_statements
+
+    if isinstance(cashflow_statements, list):
+        return cashflow_statements
+
+    return None
 
 def get_historical_financial_metrics(ticker, period):
-    api_url = f'https://fmpcloud.io/api/v3/ratios/{ticker.upper()}?period={period}&apikey={API_KEY}'
+    api_url = f'https://fmpcloud.io/api/v3/ratios/{ticker.upper()}?period={period}&apikey={FMP_API_KEY}'
     financial_metrics = requests.get(api_url).json()
-    return financial_metrics
+
+    if isinstance(financial_metrics, list):
+        return financial_metrics
+
+    return None    
 
 
 def get_balance_sheet(ticker, date, period):

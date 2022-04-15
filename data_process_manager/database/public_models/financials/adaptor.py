@@ -32,10 +32,16 @@ def get_financials(ticker, date, period):
 
 def __load_financials__(ticker, date, period):
     financial_statements = supplier.get_financial_statements(ticker, date, period)
+    if financial_statements is None:
+        return 
+
     fiscal_end = financial_statements['income_statement']['date']
     __add_financials__(ticker, fiscal_end, period, financial_statements)
 
 def __load_historical_financials__(ticker):
+
+    print('Loading historical financials for {ticker}')
+
     for period in ['quarter', 'annual']:
         historical_financials = supplier.get_historical_financial_statements(ticker, period)
         for financials in historical_financials:
