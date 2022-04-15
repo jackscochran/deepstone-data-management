@@ -46,7 +46,7 @@ def __add_price__(ticker, date, value):
     if value is None:
         return False
 
-    price_model = model.MarketPrice(ticker=ticker, date=date, value=value)
+    price_model = model.MarketPrice(ticker=ticker.lower(), date=date, value=value)
 
     try:
         price_model.save()

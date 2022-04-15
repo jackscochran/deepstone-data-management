@@ -30,7 +30,7 @@ def __load_company__(ticker, company_info):
     company_info = company_info.copy()
 
     company_model = model.Company(
-        ticker = ticker,
+        ticker = ticker.lower(),
         companyName = company_info.pop('companyName'),
         sector = company_info.pop('sector'),
         industry = company_info.pop('industry'),

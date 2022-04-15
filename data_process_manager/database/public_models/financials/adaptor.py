@@ -49,7 +49,7 @@ def __load_historical_financials__(ticker):
             
 def __add_financials__(ticker, date, period, financials):
     financials_model = model.Financials(
-        ticker=ticker,
+        ticker=ticker.lower(),
         date=date,
         period=period
     )
