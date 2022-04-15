@@ -2,4 +2,4 @@ mongoengine
 pytest
 requests
 yahoo_fin
-pymongo
+pymongo[tls,srv]
