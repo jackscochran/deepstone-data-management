@@ -2,3 +2,4 @@ mongoengine
 pytest
 requests
 yahoo_fin
+pymongo
