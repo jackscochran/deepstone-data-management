@@ -11,7 +11,6 @@ def load_data(tickers=None):
 
 def get_all_tickers():
     companies = model.Company.objects.all()
-
     return [company.ticker for company in companies]
 
 def get_company(ticker):
