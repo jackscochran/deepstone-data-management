@@ -6,7 +6,6 @@ import mongoengine
 def load_data(tickers=None):
     if tickers is None:
         tickers = supplier.get_ticker_list()
-    
     __load_companies__(tickers)
 
 
