@@ -7,7 +7,7 @@ class MarketPrice(mongoengine.Document):
 
     meta = {
         'db_alias': 'publicDB',
-        'collection': 'marketPrices',
+        'collection': 'marketprices',
         'indexes': [
             {'fields':  ('ticker', 'date'), 'unique': True}
         ]

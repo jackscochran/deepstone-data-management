@@ -40,7 +40,7 @@ def __load_financials__(ticker, date, period):
 
 def __load_historical_financials__(ticker):
 
-    print('Loading historical financials for {ticker}')
+    print(f'Loading historical financials for {ticker}')
 
     for period in ['quarter', 'annual']:
         historical_financials = supplier.get_historical_financial_statements(ticker, period)
