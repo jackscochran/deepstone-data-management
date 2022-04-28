@@ -10,8 +10,6 @@ def get_ticker_list(n=None):
     if n is not None:
         tickers_with_financials = tickers_with_financials[:n]
     
-    tickers_with_financials = ['aapl', 'tsla', 'msft', 'amzn', 'goog', 'nflx']
-
     return tickers_with_financials
     
 
