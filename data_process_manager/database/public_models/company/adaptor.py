@@ -1,11 +1,13 @@
 from . import model
 from . import supplier
 
+import random
+
 import mongoengine
 
 def load_data(tickers=None):
     if tickers is None:
-        tickers = supplier.get_ticker_list()
+        tickers = random.choice(supplier.get_ticker_list(), k=3000)
     __load_companies__(tickers)
 
 
