@@ -36,10 +36,10 @@ def get_historical_financial_statements(ticker, period):
     for i in range(length_proxy):
         for statement in statements:
             financials.append(__format_financials__(
-                statements[statement]['income_statements'][i],
-                statements[statement]['balance_sheets'][i],
-                statements[statement]['cashflow_statements'][i],
-                statements[statement]['financial_metrics'][i]
+                statements[statement][i],
+                statements[statement][i],
+                statements[statement][i],
+                statements[statement][i]
             ))
 
     return financials
