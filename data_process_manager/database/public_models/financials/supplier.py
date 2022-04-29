@@ -26,7 +26,7 @@ def get_historical_financial_statements(ticker, period):
     length_proxy = math.inf
 
     for statement in statements:
-        if statements(statement) is not None:
+        if statements[statement] is not None:
             if length_proxy > len(statements[statement]):
                 length_proxy =  len(statements[statement])
 
