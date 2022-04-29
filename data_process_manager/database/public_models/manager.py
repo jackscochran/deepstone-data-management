@@ -31,7 +31,7 @@ def create_test_db():
     delete_test_db()
 
 def load_database(tickers=None):
-    company.load_data(tickers)
+    # company.load_data(tickers)
     collections = [financials, market_price]
     for collection in collections:
         collection.load_data()
