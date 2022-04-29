@@ -1,5 +1,6 @@
 import requests
 import os
+import math
 
 FMP_API_KEY = os.environ['FMP_API_KEY']
 
@@ -15,21 +16,31 @@ def get_historical_financial_statements(ticker, period):
 
     financials = []
 
-    income_statements = get_historical_income_statements(ticker, period)
-    balance_sheets = get_historical_balance_sheets(ticker, period)
-    cashflow_statements = get_historical_cashflow_statements(ticker, period)
-    financial_metrics = get_historical_financial_metrics(ticker, period)
+    statements = {
+        "income_statements": get_historical_income_statements(ticker, period),
+        "balance_sheets": get_historical_balance_sheets(ticker, period),
+        "cashflow_statements": get_historical_cashflow_statements(ticker, period),
+        "financial_metrics": get_historical_financial_metrics(ticker, period)
+    }
 
-    length_proxy = min(len(income_statements), len(balance_sheets), len(cashflow_statements), len(financial_metrics))
+    length_proxy = math.inf
+
+    for statement in statements:
+        if statements(statement) is not None:
+            if length_proxy > len(statements[statement]):
+                length_proxy =  len(statements[statement])
+
+    if length_proxy == math.inf:
+        return None
+
     for i in range(length_proxy):
-        financials.append(
-            __format_financials__(
-                income_statements[i],
-                balance_sheets[i],
-                cashflow_statements[i],
-                financial_metrics[i]
-            )
-        )
+        for statement in statements:
+            financials.append(__format_financials__(
+                statements[statement]['income_statements'][i],
+                statements[statement]['balance_sheets'][i],
+                statements[statement]['cashflow_statements'][i],
+                statements[statement]['financial_metrics'][i]
+            ))
 
     return financials
 
