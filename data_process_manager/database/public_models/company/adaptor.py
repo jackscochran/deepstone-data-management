@@ -7,7 +7,7 @@ import mongoengine
 
 def load_data(tickers=None):
     if tickers is None:
-        tickers = random.choice(supplier.get_ticker_list(), k=3000)
+        tickers = random.choices(supplier.get_ticker_list(), k=3000)
     __load_companies__(tickers)
 
 
