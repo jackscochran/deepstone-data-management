@@ -26,12 +26,14 @@ def get_historical_financial_statements(ticker, period):
     length_proxy = math.inf
 
     for statement in statements:
-        if statements[statement] is not None:
-            if length_proxy > len(statements[statement]):
-                length_proxy =  len(statements[statement])
+        if statements[statement] is None:
+            return None
+        
+        if length_proxy > len(statements[statement]):
+            length_proxy =  len(statements[statement])
 
     if length_proxy == math.inf:
-        return None
+        return None # should never happen but just in case to avoid an infinite loop
 
     for i in range(length_proxy):
         for statement in statements:

@@ -7,8 +7,14 @@ import mongoengine
 
 def load_data():
     tickers = company.get_all_tickers()
+    begin_loading = False
+    start_ticker = 'ffa'
     for ticker in tickers:
-        __load_historical_financials__(ticker)
+        if ticker == start_ticker:
+            begin_loading = True
+
+        if begin_loading:
+            __load_historical_financials__(ticker)
 
 def update_data(date):
 
