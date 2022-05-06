@@ -67,6 +67,6 @@ def __add_financials__(ticker, date, period, financials):
     try:
         financials_model.save()
         return True
-    except mongoengine.errors.NotUniqueError:
+    except (mongoengine.errors.NotUniqueError, OverflowError):
         return False
 
