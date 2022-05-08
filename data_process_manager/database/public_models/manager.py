@@ -44,4 +44,4 @@ def update_database(date):
 def load_ticker(ticker):
     company.load_data([ticker])
     for collection in COLLECTIONS_TO_UPDATE:
-        collection.add_ticker(ticker)
+        collection.load_ticker(ticker)
