@@ -30,7 +30,7 @@ def create_test_db():
     yield db
     delete_test_db()
 
-COLLECTIONS_TO_UPDATE = [market_price, financials]
+COLLECTIONS_TO_UPDATE = [financials, market_price]
 
 def load_database(tickers=None):
     # company.load_data(tickers)
