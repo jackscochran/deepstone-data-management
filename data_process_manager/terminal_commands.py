@@ -17,4 +17,7 @@ if __name__ == '__main__':
 
 
     if sys.argv[1] == 'load_ticker':
-        database.public_models.manager.load_ticker(sys.argv[2])
+        database.public_models.manager.connect_production_db()
+        for i in range(2, len(sys.argv)):
+            print("Loading: " + sys.argv[i])
+            database.public_models.manager.load_ticker(sys.argv[i])
