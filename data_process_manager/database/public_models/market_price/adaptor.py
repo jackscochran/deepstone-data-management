@@ -7,7 +7,7 @@ import mongoengine
 def load_data():
     tickers = company.adaptor.get_all_tickers()
     begin_loading = False
-    start_ticker = 'cnpay'
+    start_ticker = 'ioac'
     for ticker in tickers:
         
         if ticker == start_ticker:
@@ -26,6 +26,9 @@ def update_data(date):
     tickers = company.get_all_tickers()
     for ticker in tickers:
         __load_price__(ticker, date)    
+
+def load_ticker(ticker):
+    __load_historical_prices__(ticker)
 
 def get_price_from_db(ticker ,date):
     return model.MarketPrice.objects(ticker=ticker, date=date).first()

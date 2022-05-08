@@ -14,3 +14,7 @@ if __name__ == '__main__':
         tickers_to_load =  None
         database.public_models.manager.connect_production_db()
         database.public_models.manager.load_database(tickers_to_load)
+
+
+    if sys.argv[1] == 'load_ticker':
+        database.public_models.manager.load_ticker(sys.argv[2])

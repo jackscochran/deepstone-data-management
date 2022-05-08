@@ -30,13 +30,18 @@ def create_test_db():
     yield db
     delete_test_db()
 
+COLLECTIONS_TO_UPDATE = [market_price, financials]
+
 def load_database(tickers=None):
     # company.load_data(tickers)
-    collections = [market_price, financials]
-    for collection in collections:
+    for collection in COLLECTIONS_TO_UPDATE:
         collection.load_data()
 
 def update_database(date):
-    collections = [market_price, financials]
-    for collection in collections:
+    for collection in COLLECTIONS_TO_UPDATE:
         collection.update_data(date)
+
+def load_ticker(ticker):
+    company.load_data([ticker])
+    for collection in COLLECTIONS_TO_UPDATE:
+        collection.add_ticker(ticker)

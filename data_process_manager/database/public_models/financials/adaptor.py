@@ -28,6 +28,9 @@ def update_data(date):
         for period in ['annual', 'quarter']:
             __load_financials__(ticker, date, period)
 
+def load_ticker(ticker):
+    __load_historical_financials__(ticker)
+
 def get_historical_financials(ticker):
     historical_financials = model.Financials.objects(ticker=ticker)
     return historical_financials
