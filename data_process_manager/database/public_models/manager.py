@@ -32,7 +32,7 @@ def create_test_db():
 
 def load_database(tickers=None):
     # company.load_data(tickers)
-    collections = [financials, market_price]
+    collections = [market_price, financials]
     for collection in collections:
         collection.load_data()
 

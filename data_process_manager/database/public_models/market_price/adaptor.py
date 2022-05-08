@@ -6,8 +6,15 @@ import mongoengine
 
 def load_data():
     tickers = company.adaptor.get_all_tickers()
+    begin_loading = False
+    start_ticker = 'cnpay'
     for ticker in tickers:
-        __load_historical_prices__(ticker)
+        
+        if ticker == start_ticker:
+            begin_loading = True
+
+        if begin_loading:
+            __load_historical_prices__(ticker)
 
 def update_data(date):
 
