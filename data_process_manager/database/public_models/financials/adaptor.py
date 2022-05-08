@@ -8,7 +8,7 @@ import mongoengine
 def load_data():
     tickers = company.get_all_tickers()
     begin_loading = False
-    start_ticker = '3315.hk'
+    start_ticker = 'mpa'
     for ticker in tickers:
         if ticker == start_ticker:
             begin_loading = True
@@ -50,6 +50,10 @@ def __load_historical_financials__(ticker):
 
     for period in ['quarter', 'annual']:
         historical_financials = supplier.get_historical_financial_statements(ticker, period)
+
+        if historical_financials is None:
+            continue
+
         for financials in historical_financials:
             __add_financials__(ticker, financials['income_statement']['date'], period, financials)
             
