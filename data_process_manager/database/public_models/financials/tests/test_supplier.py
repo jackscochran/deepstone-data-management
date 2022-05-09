@@ -14,7 +14,7 @@ def test_financials_are_accurate():
             except KeyError as err:
                 raise ValueError(f'Error in {statement}, account {account} is not in api call')
 
-            assert is_equal, f'Account {account} is {statement} is inconsistent'
+            assert is_equal, f'Account {account} in {statement} is inconsistent'
 
 
 def test_format_financials():
@@ -209,12 +209,17 @@ def test_format_financials():
         }
     }
     formatted_financials = supplier.__format_financials__(
-        non_formatted_statements['income_statement'],
-        non_formatted_statements['balance_sheet'],
-        non_formatted_statements['cashflow_statement'],
-        non_formatted_statements['financial_metrics']
+        [   
+            non_formatted_statements['income_statement'],
+            non_formatted_statements['balance_sheet'],
+            non_formatted_statements['cashflow_statement'],
+            non_formatted_statements['financial_metrics']
+        ]
     )
-    assert formatted_financials == TEST_FINANCIALS
+    
+    for statement in formatted_financials:
+        for item in ['acceptedDate', 'calendarYear', 'link', 'finalLink']:
+            assert item not in formatted_financials[statement]
 
 def test_statement_finder_is_not_none():
     income_statements = supplier.get_historical_income_statements(TEST_TICKER, TEST_PERIOD)

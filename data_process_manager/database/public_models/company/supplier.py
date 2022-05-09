@@ -1,6 +1,6 @@
 import requests
-import os
 
+import os
 FMP_API_KEY = os.environ['FMP_API_KEY']
 
 def get_ticker_list(n=None):

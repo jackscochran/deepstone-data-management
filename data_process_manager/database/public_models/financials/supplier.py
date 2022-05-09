@@ -1,74 +1,68 @@
 import requests
-import os
 import math
 
+import os
 FMP_API_KEY = os.environ['FMP_API_KEY']
+
+STATEMENT_NAMES = ['income_statement', 'balance_sheet', 'cashflow_statement', 'financial_metrics']
 
 def get_financial_statements(ticker, date, period):
     return __format_financials__(
-        get_income_statement(ticker, date, period),
-        get_balance_sheet(ticker, date, period),
-        get_cashflow_statement(ticker, date, period),
-        get_financial_metrics(ticker, date, period)
+        [
+            get_income_statement(ticker, date, period),
+            get_balance_sheet(ticker, date, period),
+            get_cashflow_statement(ticker, date, period),
+            get_financial_metrics(ticker, date, period)
+        ]
     )
 
 def get_historical_financial_statements(ticker, period):
 
     financials = []
 
-    statements = {
-        "income_statements": get_historical_income_statements(ticker, period),
-        "balance_sheets": get_historical_balance_sheets(ticker, period),
-        "cashflow_statements": get_historical_cashflow_statements(ticker, period),
-        "financial_metrics": get_historical_financial_metrics(ticker, period)
-    }
+    statements = [
+        get_historical_income_statements(ticker, period),
+        get_historical_balance_sheets(ticker, period),
+        get_historical_cashflow_statements(ticker, period),
+        get_historical_financial_metrics(ticker, period)
+    ]
 
     length_proxy = math.inf
 
     for statement in statements:
-        if statements[statement] is None:
+        if statement is None:
             return None
         
-        if length_proxy > len(statements[statement]):
-            length_proxy =  len(statements[statement])
+        if length_proxy > len(statement):
+            length_proxy =  len(statement)
 
     if length_proxy == math.inf:
         return None # should never happen but just in case to avoid an infinite loop
 
     for i in range(length_proxy):
-        for statement in statements:
-            financials.append(__format_financials__(
-                statements[statement][i],
-                statements[statement][i],
-                statements[statement][i],
-                statements[statement][i]
-            ))
+        financials.append(__format_financials__(
+            [statement[i] for statement in statements]
+        ))
 
     return financials
 
-def __format_financials__(income_statement, balance_sheet, cashflow_statement, financial_metrics): 
+def __format_financials__(statements): 
 
-    if income_statement is None or balance_sheet is None or cashflow_statement is None or financial_metrics is None:
-        return None
+    for statement in statements:
+        if statement is None:
+            return None
 
-    income_statement = income_statement.copy()
-    balance_sheet = balance_sheet.copy()
-    cashflow_statement = cashflow_statement.copy()
-    financial_metrics = financial_metrics.copy()
+    statements = [statement.copy() for statement in statements]
 
     accounts_to_remove = ['acceptedDate', 'calendarYear', 'link', 'finalLink']
     for account in accounts_to_remove:
-        income_statement.pop(account, None)
-        balance_sheet.pop(account, None)
-        cashflow_statement.pop(account, None)
-        financial_metrics.pop(account, None)
+        for statement in statements:
+            statement.pop(account, None)
 
-    financials = {
-        'income_statement': income_statement,
-        'balance_sheet': balance_sheet,
-        'cashflow_statement': cashflow_statement,
-        'financial_metrics': financial_metrics
-    }
+    financials = {}
+
+    for i in range(len(STATEMENT_NAMES)):
+        financials[STATEMENT_NAMES[i]] = statements[i]
         
     return financials
 
