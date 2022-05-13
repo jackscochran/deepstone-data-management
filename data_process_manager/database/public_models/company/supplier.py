@@ -2,7 +2,6 @@ import requests
 
 import os
 
-from deepstone_data_management.data_process_manager.database.public_models import company
 FMP_API_KEY = os.environ['FMP_API_KEY']
 
 def get_ticker_list(n=None):
