@@ -7,8 +7,8 @@ import mongoengine
 
 def load_data():
     tickers = company.get_all_tickers()
-    begin_loading = True #False
-    start_ticker = 'stqn'
+    begin_loading = True #set to false to filter
+    start_ticker = ''
     for ticker in tickers:
         if ticker == start_ticker:
             begin_loading = True

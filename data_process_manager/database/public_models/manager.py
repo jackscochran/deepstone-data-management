@@ -33,6 +33,7 @@ def create_test_db():
 COLLECTIONS_TO_UPDATE = [financials, market_price]
 
 def load_database(tickers=None):
+    company.load_data(tickers)
     for collection in COLLECTIONS_TO_UPDATE:
         collection.load_data()
 

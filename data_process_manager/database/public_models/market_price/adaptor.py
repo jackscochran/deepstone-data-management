@@ -6,10 +6,9 @@ import mongoengine
 
 def load_data():
     tickers = company.adaptor.get_all_tickers()
-    begin_loading = False
-    start_ticker = 'ioac'
-    for ticker in tickers:
-        
+    begin_loading = True #set to false to filter
+    start_ticker = ''
+    for ticker in tickers:        
         if ticker == start_ticker:
             begin_loading = True
 
