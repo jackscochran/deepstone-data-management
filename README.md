@@ -19,3 +19,7 @@ The ml_models folder was created to manage various AI models implimented into th
 ## System Architecture:
 
 ![System Architecture](./database-architecture.png?raw=true "Title")
+
+## Logical Database Diagram
+
+![DB Diagram](./db-diagram.png?raw=true "Title")
