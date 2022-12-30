@@ -13,5 +13,6 @@ This project was developed with test driven developmend principles, as such test
 
 The ml_models folder was created to manage various AI models implimented into the system. Functions in these folders would manage updating stock ratings created by the AI models as new data came into the system. The project was discontinued before these functions were implimented. 
 
-System Architecture:
+## System Architecture:
+
 ![System Architecture](./database-architecture.png?raw=true "Title")
